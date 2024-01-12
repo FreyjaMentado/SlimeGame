@@ -104,7 +104,6 @@ func handle_wall_slide(input_axis, delta):
 
 func handle_ground_pound():
 	if Input.is_action_just_pressed("ground_pound") and not is_on_floor():
-		print("gp")
 		if movement_data.ground_pound and not is_ground_pound:
 			is_ground_pound = true
 			velocity = Vector2.ZERO
