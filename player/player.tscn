@@ -145,3 +145,11 @@ wait_time = 0.2
 libraries = {
 "": SubResource("AnimationLibrary_571yh")
 }
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(0, -50)
+zoom = Vector2(1.5, 1.5)
+position_smoothing_enabled = true
+
+[node name="JumpBuffer" type="Timer" parent="."]
+wait_time = 0.2

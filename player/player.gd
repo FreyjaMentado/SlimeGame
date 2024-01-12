@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @export var movement_data : PlayerMovementData
 @onready var coyote_jump_timer = $CoyoteJumpTimer
+@onready var jump_buffer_timer = $JumpBuffer
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var double_jump = false
@@ -38,8 +39,9 @@ func apply_gravity(delta):
 func handle_jump():
 	if is_on_floor(): double_jump = true
 	
-	if is_on_floor() or coyote_jump_timer.time_left > 0.0:
-		if Input.is_action_just_pressed("ui_accept"):
+	if is_on_floor() or coyote_jump_timer.time_left > 0.0 :
+		if Input.is_action_just_pressed("ui_accept") or jump_buffer_timer.time_left > 0.0:
+			jump_buffer_timer.stop()
 			velocity.y = movement_data.jump_velocity
 	if not is_on_floor():
 		if Input.is_action_just_released("ui_accept") and velocity.y < movement_data.jump_velocity/2:
@@ -53,6 +55,10 @@ func handle_coyote_jump(was_on_floor):
 	var just_left_ground = was_on_floor and not is_on_floor() and velocity.y >= 0
 	if just_left_ground:
 		coyote_jump_timer.start()
+
+func handle_jump_buffer():
+	if Input.is_action_just_pressed("ui_accept"):
+		jump_buffer_timer.start()
 
 func apply_friction(input_axis, delta):
 	if input_axis == 0 and is_on_floor():
