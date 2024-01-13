@@ -10,14 +10,9 @@ script = ExtResource("1_li4qx")
 [node name="Player" parent="." instance=ExtResource("1_ip6i1")]
 position = Vector2(707, 320)
 
-[node name="Ground" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="Ground" type="Node" parent="."]
 
-[node name="platforms" type="Label" parent="Ground"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="platforms" type="Node" parent="Ground"]
 
 [node name="StaticBody2D" parent="Ground/platforms" instance=ExtResource("2_0d7kp")]
 position = Vector2(184, 480)

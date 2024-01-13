@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 @export var starting_state: State
 
@@ -6,9 +6,10 @@ var current_state: State
 
 # Initialize the state machine by giving each child state a reference to the
 # parent object it belongs to and enter the default starting_state.
-func init(parent: Player) -> void:
+func init(player: CharacterBody2D) -> void:
 	for child in get_children():
-		child.parent = parent
+		if child is Node:
+			child.player = player
 
 	# Initialize to the default state
 	change_state(starting_state)

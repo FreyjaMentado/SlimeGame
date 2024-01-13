@@ -1,18 +1,13 @@
 class_name State
-extends Node2D
-
-@export
-var animation_name: String
-@export
-var move_speed: float = 300
+extends Node
 
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 # Hold a reference to the parent so that it can be controlled by the state
-var parent: Player
+var player: CharacterBody2D
 
 func enter() -> void:
-	parent.animations.play(animation_name)
+	pass
 
 func exit() -> void:
 	pass
