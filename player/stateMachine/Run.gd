@@ -3,6 +3,8 @@ extends State
 @export var idle_state: State
 @export var air_state: State
 
+@onready var coyote_jump_timer = $"../../Timers/CoyoteJumpTimer"
+@onready var jump_buffer_timer = $"../../Timers/JumpBuffer"
 
 func enter() -> void:
 	super()
@@ -15,8 +17,13 @@ func process_physics(delta: float) -> State:
 	player.move_and_slide()
 	
 	if player.is_on_floor() and Input.is_action_just_pressed("jump"):
-		print("swap to air")
+		jump_buffer_timer.start()
 		return air_state
+		
+	if !player.is_on_floor():
+		coyote_jump_timer.start()
+		return air_state
+		
 	if player.is_on_floor() and input_axis == 0:
 		return idle_state
 	
