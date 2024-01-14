@@ -19,17 +19,14 @@ func _process(delta: float) -> void:
 	state_machine.process_frame(delta)
 
 
-#@export var movement_data : PlayerMovementData
-#@onready var coyote_jump_timer = $CoyoteJumpTimer
-#@onready var jump_buffer_timer = $JumpBuffer
-#
-#var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-#var double_jump = false
-#var wall_slide = false
+# TODO: Break out each function into its own state
+# States left to finish
+# - ground pound
+# - wall slide
+# 
 #var is_ground_pound = false
 
 #func _physics_process(delta):
-	##TODO: Break out each function into its own state
 	#
 	#handle_ground_pound()
 	#
