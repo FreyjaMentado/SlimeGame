@@ -5,12 +5,10 @@ extends State
 @export var air_state: State
 
 var is_ground_pound = false
-var current_state = null
 
 func enter() -> void:
 	super()
 	is_ground_pound = false
-	current_state = null
 
 func process_physics(delta: float) -> State:
 	if !player.is_on_floor() and player.movement_data.ground_pound and !is_ground_pound:
@@ -19,7 +17,6 @@ func process_physics(delta: float) -> State:
 		player.animations.play("GroundPoundInit")
 	
 	if player.is_on_floor() and is_ground_pound:
-		print("land")
 		player.animations.play("GroundPoundLand")
 	
 	player.move_and_slide()
@@ -33,12 +30,10 @@ func process_physics(delta: float) -> State:
 		else:
 			return idle_state
 	
-	return current_state
+	return null
 
 func move_ground_pound():
-	print("move")
 	player.velocity = Vector2(0, player.movement_data.ground_pound_speed)
 
 func end_ground_pound():
 	is_ground_pound = false
-	
