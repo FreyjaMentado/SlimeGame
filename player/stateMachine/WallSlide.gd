@@ -17,9 +17,6 @@ func process_physics(delta: float) -> State:
 
 	player.move_and_slide()
 	
-	if Input.is_action_just_pressed("jump") and player.jump_buffer_timer.time_left == 0.0:
-		player.jump_buffer_timer.start()
-	
 	if !player.is_on_floor() and Input.is_action_just_pressed("ground_pound"):
 		return ground_pound_state
 	
@@ -30,8 +27,12 @@ func process_physics(delta: float) -> State:
 		return idle_state
 	
 	if (!player.is_on_wall() 
-	or (player.is_on_wall() and player.input_axis == 0)
-	or Input.is_action_just_pressed("jump")):
+	or (player.is_on_wall() and player.input_axis == 0) 
+	or player.jump_buffer_timer.time_left > 0):
+		return air_state
+	
+	if Input.is_action_just_pressed("jump"):
+		player.jump_buffer_timer.start()
 		return air_state
 	
 	return null
