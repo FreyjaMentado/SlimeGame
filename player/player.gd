@@ -2,6 +2,7 @@ class_name Player
 extends CharacterBody2D
 
 @onready var state_machine = $StateMachine
+@onready var animations = $AnimationPlayer
 @export var movement_data: PlayerMovementData
 
 func _ready() -> void:
