@@ -177,12 +177,11 @@ script = ExtResource("5_2xcmb")
 idle_state = NodePath("../Idle")
 air_state = NodePath("../Air")
 
-[node name="Air" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "run_state", "ground_pound_state", "wall_slide_state")]
+[node name="Air" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "run_state", "ground_pound_state")]
 script = ExtResource("6_uukb8")
 idle_state = NodePath("../Idle")
 run_state = NodePath("../Run")
 ground_pound_state = NodePath("../GroundPound")
-wall_slide_state = NodePath("../WallSlide")
 
 [node name="GroundPound" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "run_state", "air_state")]
 script = ExtResource("8_f0ll7")
@@ -190,9 +189,5 @@ idle_state = NodePath("../Idle")
 run_state = NodePath("../Run")
 air_state = NodePath("../Air")
 
-[node name="WallSlide" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "run_state", "air_state", "ground_pound_state")]
+[node name="WallSlide" type="Node" parent="StateMachine"]
 script = ExtResource("9_ymp57")
-idle_state = NodePath("../Idle")
-run_state = NodePath("../Run")
-air_state = NodePath("../Air")
-ground_pound_state = NodePath("../GroundPound")

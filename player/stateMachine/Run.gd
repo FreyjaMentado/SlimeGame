@@ -7,10 +7,8 @@ func enter() -> void:
 	super()
 
 func process_physics(delta: float) -> State:
-	var input_axis = Input.get_axis('move_left', 'move_right')
-	
-	if input_axis != 0:
-		player.velocity.x = move_toward(player.velocity.x, input_axis * player.movement_data.speed, player.movement_data.acceleration * delta)
+	if player.input_axis != 0:
+		player.velocity.x = move_toward(player.velocity.x, player.input_axis * player.movement_data.speed, player.movement_data.acceleration * delta)
 	player.move_and_slide()
 	
 	if player.is_on_floor() and Input.is_action_just_pressed("jump"):
@@ -21,7 +19,7 @@ func process_physics(delta: float) -> State:
 		player.coyote_jump_timer.start()
 		return air_state
 		
-	if player.is_on_floor() and input_axis == 0:
+	if player.is_on_floor() and player.input_axis == 0:
 		return idle_state
 	
 	return null

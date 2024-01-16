@@ -25,8 +25,7 @@ func process_physics(delta: float) -> State:
 		player.jump_buffer_timer.start()
 	
 	if !is_ground_pound:
-		var input_axis = Input.get_axis('move_left', 'move_right')
-		if input_axis != 0:
+		if player.input_axis != 0:
 			return run_state
 		if Input.is_action_just_pressed("jump") or player.jump_buffer_timer.time_left > 0.0:
 			return air_state
