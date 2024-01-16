@@ -2,6 +2,7 @@ extends State
 
 @export var idle_state: State
 @export var run_state: State
+@export var ground_pound_state: State
 
 @onready var coyote_jump_timer = $"../../Timers/CoyoteJumpTimer"
 @onready var jump_buffer_timer = $"../../Timers/JumpBuffer"
@@ -47,6 +48,9 @@ func process_physics(delta: float) -> State:
 	if input_axis != 0:
 		player.velocity.x = move_toward(player.velocity.x, input_axis * player.movement_data.speed, player.movement_data.air_acceleration * delta)
 	player.move_and_slide()
+	
+	if !player.is_on_floor() and Input.is_action_just_pressed("ground_pound"):
+		return ground_pound_state
 	
 	if player.is_on_floor() and !Input.is_action_just_pressed("jump"):
 		if input_axis != 0:

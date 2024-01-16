@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b35yprvwfqx1l"]
+[gd_scene load_steps=14 format=3 uid="uid://b35yprvwfqx1l"]
 
 [ext_resource type="Texture2D" uid="uid://c4a1niq2y7we8" path="res://assets/icon.svg" id="1_iehek"]
 [ext_resource type="Script" path="res://player/player.gd" id="1_iol46"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://player/stateMachine/Idle.gd" id="4_syt1c"]
 [ext_resource type="Script" path="res://player/stateMachine/Run.gd" id="5_2xcmb"]
 [ext_resource type="Script" path="res://player/stateMachine/Air.gd" id="6_uukb8"]
+[ext_resource type="Script" path="res://player/stateMachine/GroundPound.gd" id="8_f0ll7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tcaqm"]
 
@@ -29,11 +30,11 @@ tracks/0/keys = {
 tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".")
+tracks/1/path = NodePath("StateMachine/GroundPound")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.249217),
+"times": PackedFloat32Array(0.25),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -71,11 +72,11 @@ tracks/1/keys = {
 tracks/2/type = "method"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath(".")
+tracks/2/path = NodePath("StateMachine/GroundPound")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.397317),
+"times": PackedFloat32Array(0.4),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -174,7 +175,14 @@ script = ExtResource("5_2xcmb")
 idle_state = NodePath("../Idle")
 air_state = NodePath("../Air")
 
-[node name="Air" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "run_state")]
+[node name="Air" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "run_state", "ground_pound_state")]
 script = ExtResource("6_uukb8")
 idle_state = NodePath("../Idle")
 run_state = NodePath("../Run")
+ground_pound_state = NodePath("../GroundPound")
+
+[node name="GroundPound" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "run_state", "air_state")]
+script = ExtResource("8_f0ll7")
+idle_state = NodePath("../Idle")
+run_state = NodePath("../Run")
+air_state = NodePath("../Air")
