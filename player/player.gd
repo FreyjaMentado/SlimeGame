@@ -7,6 +7,8 @@ extends CharacterBody2D
 @onready var jump_buffer_timer = $Timers/JumpBuffer
 @export var movement_data: PlayerMovementData
 
+var input_axis
+
 func _ready() -> void:
 	# Initialize the state machine, passing a reference of the player to the states,
 	# that way they can move and react accordingly
@@ -16,6 +18,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	state_machine.process_input(event)
 
 func _physics_process(delta: float) -> void:
+	input_axis = Input.get_axis('move_left', 'move_right')
 	state_machine.process_physics(delta)
 
 func _process(delta: float) -> void:
