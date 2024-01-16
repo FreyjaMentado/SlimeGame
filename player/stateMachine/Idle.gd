@@ -5,23 +5,21 @@ extends State
 
 func enter() -> void:
 	super()
-	player.velocity.x = 0
 
-func process_input(event: InputEvent) -> State:
+func process_physics(delta: float) -> State:
+	player.velocity.y += gravity * delta
+	player.velocity.x = move_toward(player.velocity.x, 0, player.movement_data.friction * delta)
+	player.move_and_slide()
+	
 	if Input.is_action_just_pressed('jump') and player.is_on_floor():
 		return air_state
 	if Input.is_action_just_pressed('move_left') or Input.is_action_just_pressed('move_right'):
 		return run_state
-	return null
-
-func process_physics(delta: float) -> State:
-	player.velocity.y += gravity * delta
-	player.move_and_slide()
 	
 	if player.is_on_floor() and Input.is_action_just_pressed("jump"):
 		player.jump_buffer_timer.start()
 		return air_state
-		
+	
 	if !player.is_on_floor():
 		player.coyote_jump_timer.start()
 		return air_state

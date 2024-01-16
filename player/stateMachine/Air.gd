@@ -5,6 +5,11 @@ extends State
 @export var ground_pound_state: State
 @export var wall_slide_state: State
 
+@onready var left_inner = $"../../LeftInner"
+@onready var left_outer = $"../../LeftOuter"
+@onready var right_inner = $"../../RightInner"
+@onready var right_outer = $"../../RightOuter"
+
 var double_jump = false
 var jump = false
 
@@ -28,8 +33,13 @@ func process_physics(delta: float) -> State:
 		handle_double_jump()
 		handle_wall_jump()
 	
+	handle_ledge_push()
+	
 	if player.input_axis != 0:
 		player.velocity.x = move_toward(player.velocity.x, player.input_axis * player.movement_data.speed, player.movement_data.air_acceleration * delta)
+	elif player.input_axis == 0:
+		player.velocity.x = move_toward(player.velocity.x, 0, player.movement_data.air_resistance * delta)
+
 	player.move_and_slide()
 	
 	if !player.is_on_floor():
@@ -47,7 +57,7 @@ func process_physics(delta: float) -> State:
 	return null
 
 func handle_jump():
-	if (player.is_on_floor() or player.coyote_jump_timer.time_left > 0.0) and jump:
+	if (player.is_on_floor() or player.coyote_jump_timer.time_left > 0.0) and jump and !player.is_on_wall():
 		if Input.is_action_just_pressed("jump") or player.jump_buffer_timer.time_left > 0.0:
 			player.velocity.y = player.movement_data.jump_velocity
 			player.jump_buffer_timer.stop()
@@ -60,11 +70,29 @@ func handle_variable_jump():
 func handle_double_jump():
 	if Input.is_action_just_pressed("jump") and double_jump and !player.is_on_wall():
 		player.velocity.y = player.movement_data.jump_velocity * 0.8
+		player.jump_buffer_timer.stop()
 		double_jump = false
 
 func handle_wall_jump():
 	if player.is_on_wall():
 		var wall_normal = player.get_wall_normal()
 		if Input.is_action_just_pressed("jump") or player.jump_buffer_timer.time_left > 0.0:
+			player.jump_buffer_timer.stop()
 			player.velocity.x = wall_normal.x * player.movement_data.speed
 			player.velocity.y = player.movement_data.jump_velocity
+
+func handle_ledge_push():
+	if player.velocity.y < 0:
+		# Up right side
+		if (right_outer.is_colliding() 
+		and !right_inner.is_colliding() 
+		and !left_inner.is_colliding() 
+		and !left_outer.is_colliding()):
+			player.global_position.x +=5
+		
+		# Up left side
+		if (left_outer.is_colliding() 
+		and !left_inner.is_colliding() 
+		and !right_inner.is_colliding() 
+		and !right_outer.is_colliding()):
+			player.global_position.x -=5

@@ -133,8 +133,6 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D"]
-floor_block_on_wall = false
-floor_snap_length = 3.0
 script = ExtResource("1_iol46")
 movement_data = ExtResource("4_3kdex")
 
@@ -199,18 +197,40 @@ run_state = NodePath("../Run")
 air_state = NodePath("../Air")
 ground_pound_state = NodePath("../GroundPound")
 
-[node name="LeftInner" type="RayCast2D" parent="."]
+[node name="LedgeRayCasts" type="Node" parent="."]
+
+[node name="Up" type="Node" parent="LedgeRayCasts"]
+
+[node name="LeftInner" type="RayCast2D" parent="LedgeRayCasts/Up"]
 position = Vector2(5, 0)
 target_position = Vector2(0, -20)
 
-[node name="LeftOuter" type="RayCast2D" parent="."]
+[node name="LeftOuter" type="RayCast2D" parent="LedgeRayCasts/Up"]
 position = Vector2(10, 0)
 target_position = Vector2(0, -20)
 
-[node name="RightInner" type="RayCast2D" parent="."]
+[node name="RightInner" type="RayCast2D" parent="LedgeRayCasts/Up"]
 position = Vector2(-5, 0)
 target_position = Vector2(0, -20)
 
-[node name="RightOuter" type="RayCast2D" parent="."]
+[node name="RightOuter" type="RayCast2D" parent="LedgeRayCasts/Up"]
 position = Vector2(-10, 0)
 target_position = Vector2(0, -20)
+
+[node name="Sides" type="Node" parent="LedgeRayCasts"]
+
+[node name="LeftTop" type="RayCast2D" parent="LedgeRayCasts/Sides"]
+position = Vector2(0, 5)
+target_position = Vector2(-20, 0)
+
+[node name="LeftBottom" type="RayCast2D" parent="LedgeRayCasts/Sides"]
+position = Vector2(0, 10)
+target_position = Vector2(-20, 0)
+
+[node name="RightTop" type="RayCast2D" parent="LedgeRayCasts/Sides"]
+position = Vector2(0, 5)
+target_position = Vector2(20, 0)
+
+[node name="RightBottom" type="RayCast2D" parent="LedgeRayCasts/Sides"]
+position = Vector2(0, 10)
+target_position = Vector2(20, 0)
