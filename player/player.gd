@@ -5,7 +5,7 @@ extends CharacterBody2D
 @onready var animations = $AnimationPlayer
 @onready var coyote_jump_timer = $Timers/CoyoteJumpTimer
 @onready var jump_buffer_timer = $Timers/JumpBuffer
-
+@onready var sprite = $Sprite
 @export var movement_data: PlayerMovementData
 
 var input_axis
@@ -14,12 +14,15 @@ func _ready() -> void:
 	# Initialize the state machine, passing a reference of the player to the states,
 	# that way they can move and react accordingly
 	state_machine.init(self)
+	sprite.scale.x = 0.113
+	sprite.scale.y = 0.113
 
 func _unhandled_input(event: InputEvent) -> void:
 	state_machine.process_input(event)
 
 func _physics_process(delta: float) -> void:
 	input_axis = Input.get_axis('move_left', 'move_right')
+	sprite.flip_h = input_axis > 0
 	state_machine.process_physics(delta)
 
 func _process(delta: float) -> void:
