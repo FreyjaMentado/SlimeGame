@@ -16,6 +16,7 @@ func _ready() -> void:
 	state_machine.init(self)
 	sprite.scale.x = 0.113
 	sprite.scale.y = 0.113
+	z_index = 10
 
 func _unhandled_input(event: InputEvent) -> void:
 	state_machine.process_input(event)

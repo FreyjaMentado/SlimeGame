@@ -1,16 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://d2kitl2ay0nde"]
+[gd_scene load_steps=2 format=3 uid="uid://d2kitl2ay0nde"]
 
-[ext_resource type="Texture2D" uid="uid://cpmtpcmcr5280" path="res://assets/platforms/brownPlatform.png" id="1_s13a3"]
+[ext_resource type="PackedScene" uid="uid://bve1eg730p02b" path="res://tile_map.tscn" id="1_x8axc"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3kbt0"]
-size = Vector2(44, 8)
+[node name="Node2D" type="Node2D"]
 
-[node name="StaticBody2D" type="StaticBody2D"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_3kbt0")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-0.315068, 2.98023e-08)
-scale = Vector2(0.155434, 0.136986)
-texture = ExtResource("1_s13a3")
+[node name="TileMap" parent="." instance=ExtResource("1_x8axc")]
+layer_0/tile_data = PackedInt32Array(-2, 2, 4, 65534, 2, 5, -1, 65538, 4, 65535, 65538, 5, -65536, 131074, 4, 0, 131074, 5, -65535, 196610, 4, 1, 196610, 5)
