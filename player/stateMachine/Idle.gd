@@ -11,8 +11,6 @@ func process_physics(delta: float) -> State:
 	player.velocity.x = move_toward(player.velocity.x, 0, player.movement_data.friction * delta)
 	player.move_and_slide()
 	
-	if Input.is_action_just_pressed('jump') and player.is_on_floor():
-		return air_state
 	if Input.is_action_just_pressed('move_left') or Input.is_action_just_pressed('move_right'):
 		return run_state
 	
