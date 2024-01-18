@@ -6,6 +6,7 @@ extends CharacterBody2D
 @onready var coyote_jump_timer = $Timers/CoyoteJumpTimer
 @onready var jump_buffer_timer = $Timers/JumpBuffer
 @onready var sprite = $Sprite
+
 @export var movement_data: PlayerMovementData
 
 var input_axis
@@ -14,8 +15,9 @@ func _ready() -> void:
 	# Initialize the state machine, passing a reference of the player to the states,
 	# that way they can move and react accordingly
 	state_machine.init(self)
-	sprite.scale.x = 0.113
-	sprite.scale.y = 0.113
+	sprite.scale.x = 0.347
+	sprite.scale.y = 0.347
+	sprite.position.y += 1
 	z_index = 10
 
 func _unhandled_input(event: InputEvent) -> void:

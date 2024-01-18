@@ -82,7 +82,7 @@ func handle_wall_jump():
 			player.velocity.y = player.movement_data.jump_velocity
 
 func handle_ledge_push():
-	if player.velocity.y < 0:
+	if player.velocity.y < player.movement_data.jump_velocity/2:
 		# Up right side
 		if (right_outer.is_colliding() 
 		and !right_inner.is_colliding() 

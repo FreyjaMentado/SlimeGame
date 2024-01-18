@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://ukxydmailmyo"]
+
+[ext_resource type="Texture2D" uid="uid://dprt4y3o3col7" path="res://assets/slimeTrail.png" id="1_k5isk"]
+
+[node name="slime" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_k5isk")

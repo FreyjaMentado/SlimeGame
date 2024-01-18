@@ -6,3 +6,5 @@
 
 [node name="TileMap" parent="." instance=ExtResource("1_x8axc")]
 layer_0/tile_data = PackedInt32Array(-2, 2, 4, 65534, 2, 5, -1, 65538, 4, 65535, 65538, 5, -65536, 131074, 4, 0, 131074, 5, -65535, 196610, 4, 1, 196610, 5)
+layer_1/enabled = false
+layer_1/tile_data = PackedInt32Array(-2, 1, 4, 65534, 1, 5, -1, 65537, 4, 65535, 65537, 5, -65536, 131073, 4, 0, 131073, 5, -65535, 196609, 4, 1, 196609, 5)

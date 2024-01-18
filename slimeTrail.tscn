@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3xs2telxn2vr"]
+
+[ext_resource type="Texture2D" uid="uid://dprt4y3o3col7" path="res://assets/slimeTrail.png" id="1_t5yg8"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_t5yg8")
