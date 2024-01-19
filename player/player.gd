@@ -6,16 +6,12 @@ extends CharacterBody2D
 @onready var coyote_jump_timer = $Timers/CoyoteJumpTimer
 @onready var jump_buffer_timer = $Timers/JumpBuffer
 @onready var sprite = $Sprite
-@onready var slime_left = $LeftSlime
-@onready var slime_right = $RightSlime
-@onready var slime_bottom = $BottomSlime
 
 @export var movement_data: PlayerMovementData
-@export var slime_trail: PackedScene
 
 # Reference to the two tilesets
 var input_axis
-var spawn_slime
+var spawn_slime : bool
 
 func _ready() -> void:
 	# Initialize the state machine, passing a reference of the player to the states,

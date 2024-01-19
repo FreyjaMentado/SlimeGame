@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dhgyj0ij8404q"]
 
-[ext_resource type="Texture2D" path="res://assets/Legacy-Fantasy - High Forest 2.3/Tiles/Buildings.png" id="1_c68ip"]
-[ext_resource type="Texture2D" path="res://assets/Legacy-Fantasy - High Forest 2.3/Tiles/SlimedBuildings.png" id="2_a7h0q"]
+[ext_resource type="Texture2D" uid="uid://hq4vc6643x1j" path="res://assets/Legacy-Fantasy - High Forest 2.3/Tiles/Buildings.png" id="1_c68ip"]
+[ext_resource type="Texture2D" uid="uid://cisxh8sftfmsa" path="res://assets/Legacy-Fantasy - High Forest 2.3/Tiles/SlimedBuildings.png" id="2_a7h0q"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_okdpj"]
 resource_name = "Slime"
