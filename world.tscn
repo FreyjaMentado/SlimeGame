@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://b35yprvwfqx1l" path="res://player/player.tscn" id="1_ip6i1"]
 [ext_resource type="Script" path="res://world.gd" id="1_li4qx"]
 [ext_resource type="PackedScene" uid="uid://d2kitl2ay0nde" path="res://assets/platforms/basePlatform.tscn" id="2_0d7kp"]
-[ext_resource type="PackedScene" uid="uid://b3xs2telxn2vr" path="res://slimeTrail.tscn" id="2_4osab"]
-[ext_resource type="PackedScene" uid="uid://bve1eg730p02b" path="res://tile_map.tscn" id="4_egmgt"]
+[ext_resource type="PackedScene" uid="uid://dde5po88nfns8" path="res://slimeTrail.tscn" id="2_4osab"]
+[ext_resource type="PackedScene" uid="uid://dhgyj0ij8404q" path="res://tile_map.tscn" id="4_egmgt"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_li4qx")
