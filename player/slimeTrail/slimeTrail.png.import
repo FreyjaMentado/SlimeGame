@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://hbrhdmykc2mc"
-path="res://.godot/imported/slimeSprite256.png-c0448d7c98c5985aa7cc0b4da9b387fd.ctex"
+uid="uid://i8yvr60wdyj0"
+path="res://.godot/imported/slimeTrail.png-98ef087f29a5c9b750f7ec71af44d25f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/slimeSprite256.png"
-dest_files=["res://.godot/imported/slimeSprite256.png-c0448d7c98c5985aa7cc0b4da9b387fd.ctex"]
+source_file="res://player/slimeTrail/slimeTrail.png"
+dest_files=["res://.godot/imported/slimeTrail.png-98ef087f29a5c9b750f7ec71af44d25f.ctex"]
 
 [params]
 
