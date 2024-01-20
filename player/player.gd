@@ -30,6 +30,9 @@ func _physics_process(delta: float) -> void:
 	input_axis = Input.get_axis('move_left', 'move_right')
 	sprite.flip_h = input_axis > 0
 	state_machine.process_physics(delta)
+	
+	if Input.is_action_just_pressed("click"):
+		print(get_tree().get_nodes_in_group("Slime").size())
 
 func _process(delta: float) -> void:
 	state_machine.process_frame(delta)
