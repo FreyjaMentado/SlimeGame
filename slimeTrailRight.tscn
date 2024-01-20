@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bh8tguf8so4kr"]
+
+[ext_resource type="Script" path="res://slimeTrail.gd" id="1_gh8q6"]
+[ext_resource type="Texture2D" uid="uid://i8yvr60wdyj0" path="res://assets/slimeTrail.png" id="2_maptw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j4mio"]
+size = Vector2(6, 10)
+
+[node name="SlimeTrail" type="Area2D" groups=["Slime"]]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_gh8q6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-4, 0)
+rotation = 1.5708
+scale = Vector2(0.76, 0.745)
+texture = ExtResource("2_maptw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-7, 0)
+shape = SubResource("RectangleShape2D_j4mio")

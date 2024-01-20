@@ -1,57 +1,64 @@
 extends Node2D
 
-# Reference to the TileMap
-@onready var tilemap : TileMap = $Ground/TileMap
 @onready var player = $Player
 
-@export var slime_trail: PackedScene
+@export var slime_trail : PackedScene
+@export var slime_trail_left : PackedScene
+@export var slime_trail_right : PackedScene
 
-# Reference to the two tilesets
-var tile_set_base : TileSet
-var tile_set_slime : TileSet
-var slime_left : RayCast2D
-var slime_right : RayCast2D
-var slime_bottom : RayCast2D
+var slime_left
+var slime_right
+var slime_bottom
+var slime_left_area
+var slime_right_area
+var slime_bottom_left_area
+var slime_bottom_right_area
+
+enum side {
+	left,
+	right,
+	bottom
+}
 
 func _ready():
-	# Set the initial tileset for the entire TileMap
-	#tile_set_base = tilemap.tile_set["Base"]
-	#tile_set_slime = tilemap.tile_set["Slime"]
-	slime_left = get_node("Player/LeftSlime")
-	slime_right = get_node("Player/RightSlime")
-	slime_bottom = get_node("Player/BottomSlime")
+	slime_left = player.get_node("LeftSlime")
+	slime_right = player.get_node("RightSlime")
+	slime_bottom = player.get_node("BottomSlime")
+	slime_left_area = player.get_node("LeftSlimeArea")
+	slime_right_area = player.get_node("RightSlimeArea")
+	slime_bottom_left_area = player.get_node("BottomLeftSlimeArea")
+	slime_bottom_right_area = player.get_node("BottomRightSlimeArea")
 
-func _process(delta):
-	spawn_slime()
+func _physics_process(delta):
+	handle_slime_trail()
 
-# Swap the appearance of the tile at the specified coordinates
-func spawn_slime():
+func handle_slime_trail():
+	var collider_object : Object
+	
 	if slime_left.is_colliding():
-		var player_tile_coords : Vector2
-		player_tile_coords = tilemap.local_to_map(slime_left.get_collision_point())
-		var slime = slime_trail.instantiate()
-		add_child(slime)
-		slime.transform = player.global_transform
+		if !slime_left_area.is_colliding() and !slime_bottom_left_area.is_colliding():
+			print("spawn")
+			handle_spawn_slime(side.left)
 	
 	if slime_right.is_colliding():
-		var player_tile_coords : Vector2
-		player_tile_coords = tilemap.local_to_map(slime_right.get_collision_point())
-		var slime = slime_trail.instantiate()
-		add_child(slime)
-		slime.transform = player.global_transform
+		if !slime_right_area.is_colliding() and !slime_bottom_right_area.is_colliding():
+			print("spawn")
+			handle_spawn_slime(side.right)
 	
 	if slime_bottom.is_colliding():
-		var player_tile_coords : Vector2
-		player_tile_coords = tilemap.local_to_map(slime_bottom.get_collision_point())
-		var slime = slime_trail.instantiate()
-		add_child(slime)
-		slime.transform = player.global_transform
-	
-	# Get the current tile ID at the specified coordinates
-	#var current_tile_id : int = tilemap.get_cell(tile_coords.x, tile_coords.y)
-	# Check the current tile ID and update it based on the condition
-	#if current_tile_id == tile_set_base:
-		#tilemap.set_cell(tile_coords.x, tile_coords.y, tileID_tileset2)
-	#elif current_tile_id == tileID_tileset2:
-		#tilemap.set_cell(tile_coords.x, tile_coords.y, tileID_tileset1)
-	# Add more conditions if you have more than two tilesets
+		if !slime_bottom_left_area.is_colliding() and !slime_bottom_right_area.is_colliding():
+			print("spawn")
+			handle_spawn_slime(side.bottom)
+		
+
+func handle_spawn_slime(side_to_spawn: side):
+	var slime
+	match side_to_spawn:
+		side.left:
+			slime = slime_trail_left.instantiate()
+		side.right:
+			slime = slime_trail_right.instantiate()
+		side.bottom:
+			slime = slime_trail.instantiate()
+	slime.transform = player.global_transform
+	add_child(slime)

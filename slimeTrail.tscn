@@ -1,6 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://b3xs2telxn2vr"]
+[gd_scene load_steps=4 format=3 uid="uid://dde5po88nfns8"]
 
-[ext_resource type="Texture2D" uid="uid://dprt4y3o3col7" path="res://assets/slimeTrail.png" id="1_t5yg8"]
+[ext_resource type="Texture2D" uid="uid://i8yvr60wdyj0" path="res://assets/slimeTrail.png" id="1_t5yg8"]
+[ext_resource type="Script" path="res://slimeTrail.gd" id="2_qavbn"]
 
-[node name="Sprite2D" type="Sprite2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j4mio"]
+size = Vector2(10, 6)
+
+[node name="SlimeTrail" type="Area2D" groups=["Slime"]]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("2_qavbn")
+
+[node name="Sprite2D" type="Sprite2D" parent="." groups=["Slime"]]
+position = Vector2(0, 4)
+scale = Vector2(0.76, 0.745)
 texture = ExtResource("1_t5yg8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 7)
+shape = SubResource("RectangleShape2D_j4mio")

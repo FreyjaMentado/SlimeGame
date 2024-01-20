@@ -133,6 +133,8 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 3
+collision_mask = 3
 floor_block_on_wall = false
 floor_snap_length = 3.0
 script = ExtResource("1_iol46")
@@ -199,14 +201,59 @@ run_state = NodePath("../Run")
 air_state = NodePath("../Air")
 ground_pound_state = NodePath("../GroundPound")
 
+[node name="SlimeWallDetection" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+
 [node name="LeftSlime" type="RayCast2D" parent="."]
 target_position = Vector2(11, 0)
+
+[node name="RightSlime" type="RayCast2D" parent="."]
+target_position = Vector2(-11, 0)
 
 [node name="BottomSlime" type="RayCast2D" parent="."]
 target_position = Vector2(0, 11)
 
-[node name="RightSlime" type="RayCast2D" parent="."]
-target_position = Vector2(-11, 0)
+[node name="SlimeAreaDetection" type="Label" parent="."]
+offset_left = -10.0
+offset_right = 30.0
+offset_bottom = 23.0
+
+[node name="LeftSlimeArea" type="RayCast2D" parent="."]
+target_position = Vector2(5, 0)
+collision_mask = 2
+hit_from_inside = true
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="RightSlimeArea" type="RayCast2D" parent="."]
+position = Vector2(0, -5)
+target_position = Vector2(-5, 0)
+collision_mask = 2
+hit_from_inside = true
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="BottomLeftSlimeArea" type="RayCast2D" parent="."]
+position = Vector2(-5, 0)
+target_position = Vector2(0, 5)
+collision_mask = 2
+hit_from_inside = true
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="BottomRightSlimeArea" type="RayCast2D" parent="."]
+position = Vector2(5, 0)
+target_position = Vector2(0, 5)
+collision_mask = 2
+hit_from_inside = true
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="LedgePushDetection" type="Label" parent="."]
+offset_left = 5.0
+offset_right = 45.0
+offset_bottom = 23.0
 
 [node name="LeftInner" type="RayCast2D" parent="."]
 position = Vector2(5, 0)
