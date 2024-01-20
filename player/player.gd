@@ -11,7 +11,6 @@ extends CharacterBody2D
 
 # Reference to the two tilesets
 var input_axis
-var spawn_slime : bool
 
 func _ready() -> void:
 	# Initialize the state machine, passing a reference of the player to the states,
@@ -21,7 +20,6 @@ func _ready() -> void:
 	sprite.scale.y = 0.347
 	sprite.position.y += 1
 	z_index = 10
-	spawn_slime = true
 
 func _unhandled_input(event: InputEvent) -> void:
 	state_machine.process_input(event)
@@ -36,6 +34,3 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	state_machine.process_frame(delta)
-
-
-
