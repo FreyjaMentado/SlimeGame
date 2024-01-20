@@ -162,12 +162,10 @@ position_smoothing_enabled = true
 [node name="Timers" type="Node" parent="."]
 
 [node name="JumpBuffer" type="Timer" parent="Timers"]
-wait_time = 0.2
-one_shot = true
+wait_time = 0.5
 
 [node name="CoyoteJumpTimer" type="Timer" parent="Timers"]
-wait_time = 0.2
-one_shot = true
+wait_time = 0.3
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
 script = ExtResource("4_nywrc")
@@ -260,3 +258,6 @@ target_position = Vector2(0, -15)
 [node name="RightOuter" type="RayCast2D" parent="."]
 position = Vector2(-10, 0)
 target_position = Vector2(0, -15)
+
+[connection signal="timeout" from="Timers/JumpBuffer" to="." method="_on_jump_buffer_timeout"]
+[connection signal="timeout" from="Timers/CoyoteJumpTimer" to="." method="_on_coyote_jump_timer_timeout"]

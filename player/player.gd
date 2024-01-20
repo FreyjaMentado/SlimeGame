@@ -34,3 +34,9 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	state_machine.process_frame(delta)
+
+func _on_coyote_jump_timer_timeout():
+	coyote_jump_timer.stop()
+
+func _on_jump_buffer_timeout():
+	jump_buffer_timer.stop()

@@ -30,22 +30,22 @@ position = Vector2(184, 480)
 position = Vector2(816, 432)
 
 [node name="StaticBody2D3" parent="Ground/platforms" instance=ExtResource("2_0d7kp")]
-position = Vector2(424, 448)
+position = Vector2(422, 396)
 
 [node name="StaticBody2D4" parent="Ground/platforms" instance=ExtResource("2_0d7kp")]
 position = Vector2(304, 432)
 
 [node name="StaticBody2D5" parent="Ground/platforms" instance=ExtResource("2_0d7kp")]
-position = Vector2(608, 464)
+position = Vector2(881, 335)
 
 [node name="StaticBody2D6" parent="Ground/platforms" instance=ExtResource("2_0d7kp")]
 position = Vector2(712, 448)
 
 [node name="StaticBody2D7" parent="Ground/platforms" instance=ExtResource("2_0d7kp")]
-position = Vector2(520, 400)
+position = Vector2(517, 355)
 
 [node name="StaticBody2D8" parent="Ground/platforms" instance=ExtResource("2_0d7kp")]
-position = Vector2(944, 416)
+position = Vector2(982, 392)
 
 [node name="Player" parent="." instance=ExtResource("1_ip6i1")]
 position = Vector2(303, 393)
