@@ -163,9 +163,11 @@ position_smoothing_enabled = true
 
 [node name="JumpBuffer" type="Timer" parent="Timers"]
 wait_time = 0.2
+one_shot = true
 
 [node name="CoyoteJumpTimer" type="Timer" parent="Timers"]
 wait_time = 0.2
+one_shot = true
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
 script = ExtResource("4_nywrc")
@@ -200,19 +202,6 @@ idle_state = NodePath("../Idle")
 run_state = NodePath("../Run")
 air_state = NodePath("../Air")
 ground_pound_state = NodePath("../GroundPound")
-
-[node name="SlimeWallDetection" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
-
-[node name="LeftSlime" type="RayCast2D" parent="."]
-target_position = Vector2(11, 0)
-
-[node name="RightSlime" type="RayCast2D" parent="."]
-target_position = Vector2(-11, 0)
-
-[node name="BottomSlime" type="RayCast2D" parent="."]
-target_position = Vector2(0, 11)
 
 [node name="SlimeAreaDetection" type="Label" parent="."]
 offset_left = -10.0
