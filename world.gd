@@ -55,6 +55,6 @@ func handle_spawn_slime(side_to_spawn: side):
 
 
 func _on_end_game_timeout():
-	print("Game over!")
-	print("Score: ", get_tree().get_nodes_in_group("Slime").size())
+	var game_vars = get_node("/root/GameVariables")
+	game_vars.score = get_tree().get_nodes_in_group("Slime").size()
 	get_tree().change_scene_to_file("res://score_menu.tscn")
