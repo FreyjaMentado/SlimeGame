@@ -26,13 +26,14 @@ func process_physics(delta: float) -> State:
 	if player.is_on_floor() and player.input_axis == 0:
 		return idle_state
 	
+	if Input.is_action_just_pressed("jump"):
+		player.jump_buffer_timer.start()
+		return air_state
+	
 	if (!player.is_on_wall() 
 	or (player.is_on_wall() and player.input_axis == 0) 
 	or player.jump_buffer_timer.time_left > 0):
 		return air_state
 	
-	if Input.is_action_just_pressed("jump"):
-		player.jump_buffer_timer.start()
-		return air_state
 	
 	return null

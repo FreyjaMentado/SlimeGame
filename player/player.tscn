@@ -162,10 +162,12 @@ position_smoothing_enabled = true
 [node name="Timers" type="Node" parent="."]
 
 [node name="JumpBuffer" type="Timer" parent="Timers"]
-wait_time = 0.5
+wait_time = 0.2
+one_shot = true
 
 [node name="CoyoteJumpTimer" type="Timer" parent="Timers"]
-wait_time = 0.3
+wait_time = 0.2
+one_shot = true
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
 script = ExtResource("4_nywrc")

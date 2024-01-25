@@ -45,10 +45,10 @@ func process_physics(delta: float) -> State:
 	if !player.is_on_floor():
 		if Input.is_action_just_pressed("ground_pound"):
 			return ground_pound_state
-		if player.is_on_wall() and !Input.is_action_just_pressed("jump") and player.velocity.y > 0:
+		if player.is_on_wall() and player.jump_buffer_timer.time_left == 0 and player.velocity.y > 0:
 			return wall_slide_state
 	
-	if player.is_on_floor() and (!Input.is_action_just_pressed("jump") or player.jump_buffer_timer.time_left == 0):
+	if player.is_on_floor() and player.jump_buffer_timer.time_left == 0:
 		if player.input_axis != 0:
 			return run_state
 		return idle_state
@@ -58,7 +58,7 @@ func process_physics(delta: float) -> State:
 func handle_jump():
 	if (player.is_on_floor() or player.coyote_jump_timer.time_left > 0.0) and jump:
 		if Input.is_action_just_pressed("jump") or player.jump_buffer_timer.time_left > 0.0:
-			player.jump_buffer_timer.stop()
+			player.jump_buffer_timer.stop() 
 			player.coyote_jump_timer.stop()
 			player.velocity.y = player.movement_data.jump_velocity
 			jump = false
@@ -75,9 +75,9 @@ func handle_double_jump():
 func handle_wall_jump():
 	if player.is_on_wall():
 		var wall_normal = player.get_wall_normal()
-		if Input.is_action_just_pressed("jump") or player.jump_buffer_timer.time_left > 0.0:
+		if player.jump_buffer_timer.time_left > 0.0:
 			player.jump_buffer_timer.stop()
-			player.velocity.x = wall_normal.x * player.movement_data.speed
+			player.velocity.x = wall_normal.x * player.movement_data.speed * 2
 			player.velocity.y = player.movement_data.jump_velocity
 
 func handle_ledge_push():
