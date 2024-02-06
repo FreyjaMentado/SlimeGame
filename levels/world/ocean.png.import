@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bp0m7witbkjsm"
-path="res://.godot/imported/pixelSlime80x64FinalV1.png-b2da4e6dc7f35a8646440431230c9260.ctex"
+uid="uid://cwd2o7feuuxvr"
+path="res://.godot/imported/ocean.png-334b48aa5e33a54abaafccc526adf9f3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://player/pixelSlime80x64FinalV1.png"
-dest_files=["res://.godot/imported/pixelSlime80x64FinalV1.png-b2da4e6dc7f35a8646440431230c9260.ctex"]
+source_file="res://levels/world/ocean.png"
+dest_files=["res://.godot/imported/ocean.png-334b48aa5e33a54abaafccc526adf9f3.ctex"]
 
 [params]
 

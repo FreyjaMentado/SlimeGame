@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://b35yprvwfqx1l"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_iol46"]
-[ext_resource type="Texture2D" uid="uid://bp0m7witbkjsm" path="res://player/pixelSlime80x64FinalV1.png" id="3_xpvp5"]
+[ext_resource type="Texture2D" uid="uid://bp0m7witbkjsm" path="res://player/assets/pixelSlime80x64FinalV1.png" id="3_xpvp5"]
 [ext_resource type="Resource" uid="uid://dbejhsudfq7e1" path="res://player/movementData/baseMovement.tres" id="4_3kdex"]
 [ext_resource type="Script" path="res://player/stateMachine/StateMachine.gd" id="4_nywrc"]
 [ext_resource type="Script" path="res://player/stateMachine/Idle.gd" id="4_syt1c"]
