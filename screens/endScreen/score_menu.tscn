@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://lr2y6hh7bkyg"]
 
-[ext_resource type="Script" path="res://score_menu.gd" id="1_ja3j3"]
-[ext_resource type="Texture2D" uid="uid://cw6st188lcks1" path="res://endscreen.png" id="2_j7pcj"]
+[ext_resource type="Script" path="res://screens/endScreen/score_menu.gd" id="1_ja3j3"]
+[ext_resource type="Texture2D" uid="uid://cw6st188lcks1" path="res://screens/endScreen/endscreen.png" id="2_j7pcj"]
 
 [node name="ScoreMenu" type="Control"]
 layout_mode = 3
