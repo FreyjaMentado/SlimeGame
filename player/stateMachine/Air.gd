@@ -16,8 +16,6 @@ func enter() -> void:
 func process_physics(delta: float) -> State:
 	player.velocity.y += gravity * delta * player.movement_data.gravity_scale
 	
-	print("Coyote: ", player.coyote_jump_timer.time_left)
-	
 	if Input.is_action_just_pressed("jump"):
 		player.jump_buffer_timer.start()
 	
