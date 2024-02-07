@@ -260,6 +260,3 @@ target_position = Vector2(0, -15)
 [node name="RightOuter" type="RayCast2D" parent="."]
 position = Vector2(-10, 0)
 target_position = Vector2(0, -15)
-
-[connection signal="timeout" from="Timers/JumpBuffer" to="." method="_on_jump_buffer_timeout"]
-[connection signal="timeout" from="Timers/CoyoteJumpTimer" to="." method="_on_coyote_jump_timer_timeout"]

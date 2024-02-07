@@ -11,6 +11,7 @@ extends CharacterBody2D
 
 # Reference to the two tilesets
 var input_axis
+var double_jump = false
 
 func _ready() -> void:
 	# Initialize the state machine, passing a reference of the player to the states,
@@ -26,14 +27,17 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	input_axis = Input.get_axis('move_left', 'move_right')
-	sprite.flip_h = input_axis > 0
+	handle_sprite()
+	handle_double_jump()
 	state_machine.process_physics(delta)
 
 func _process(delta: float) -> void:
 	state_machine.process_frame(delta)
 
-func _on_coyote_jump_timer_timeout():
-	coyote_jump_timer.stop()
+func handle_double_jump():
+	if is_on_floor():
+		double_jump = true
 
-func _on_jump_buffer_timeout():
-	jump_buffer_timer.stop()
+func handle_sprite():
+	sprite.flip_h = input_axis > 0
+
