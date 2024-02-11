@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsr7l4tfg11we"]
+
+[ext_resource type="Texture2D" uid="uid://de0bppw87uc1m" path="res://levels/world/black.png" id="1_bhyty"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a8uic"]
+
+[node name="Node2D" type="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_a8uic")
+
+[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
+texture = ExtResource("1_bhyty")

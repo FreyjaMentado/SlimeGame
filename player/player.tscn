@@ -1,11 +1,14 @@
-[gd_scene load_steps=15 format=3 uid="uid://b35yprvwfqx1l"]
+[gd_scene load_steps=18 format=3 uid="uid://b35yprvwfqx1l"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_iol46"]
+[ext_resource type="PackedScene" uid="uid://dde5po88nfns8" path="res://player/slimeTrail/slimeTrail.tscn" id="3_e7uva"]
 [ext_resource type="Texture2D" uid="uid://bp0m7witbkjsm" path="res://player/assets/pixelSlime80x64FinalV1.png" id="3_xpvp5"]
 [ext_resource type="Resource" uid="uid://dbejhsudfq7e1" path="res://player/movementData/baseMovement.tres" id="4_3kdex"]
+[ext_resource type="PackedScene" uid="uid://cc7gklruw284r" path="res://player/slimeTrail/slimeTrailLeft.tscn" id="4_lnwq1"]
 [ext_resource type="Script" path="res://player/stateMachine/StateMachine.gd" id="4_nywrc"]
 [ext_resource type="Script" path="res://player/stateMachine/Idle.gd" id="4_syt1c"]
 [ext_resource type="Script" path="res://player/stateMachine/Run.gd" id="5_2xcmb"]
+[ext_resource type="PackedScene" uid="uid://bh8tguf8so4kr" path="res://player/slimeTrail/slimeTrailRight.tscn" id="5_iye8f"]
 [ext_resource type="Script" path="res://player/stateMachine/Air.gd" id="6_uukb8"]
 [ext_resource type="Script" path="res://player/stateMachine/GroundPound.gd" id="8_f0ll7"]
 [ext_resource type="Script" path="res://player/stateMachine/WallSlide.gd" id="9_ymp57"]
@@ -139,6 +142,9 @@ floor_block_on_wall = false
 floor_snap_length = 3.0
 script = ExtResource("1_iol46")
 movement_data = ExtResource("4_3kdex")
+slime_trail = ExtResource("3_e7uva")
+slime_trail_left = ExtResource("4_lnwq1")
+slime_trail_right = ExtResource("5_iye8f")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(0, -1)
