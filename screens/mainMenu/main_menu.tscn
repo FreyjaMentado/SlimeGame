@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bd20kp0fhcc02"]
+[gd_scene load_steps=4 format=3 uid="uid://bd20kp0fhcc02"]
 
 [ext_resource type="Script" path="res://screens/mainMenu/main_menu.gd" id="1_3tryx"]
+[ext_resource type="PackedScene" uid="uid://dxjfyarsptseq" path="res://levels/world/world.tscn" id="2_b1xv7"]
 [ext_resource type="Texture2D" uid="uid://c4b1n5j5om44o" path="res://screens/mainMenu/title-screen.png" id="2_jv3dh"]
 
 [node name="MainMenu" type="Control"]
@@ -11,6 +12,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3tryx")
+level = ExtResource("2_b1xv7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(968.556, 545.25)
