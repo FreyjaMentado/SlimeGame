@@ -37,7 +37,6 @@ func _ready() -> void:
 	sprite.position.y += 1
 	z_index = 10
 	level = get_parent()
-	print("parent: ", level)
 
 func _unhandled_input(event: InputEvent) -> void:
 	state_machine.process_input(event)
