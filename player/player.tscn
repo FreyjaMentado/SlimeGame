@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b35yprvwfqx1l"]
+[gd_scene load_steps=19 format=3 uid="uid://b35yprvwfqx1l"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_iol46"]
 [ext_resource type="PackedScene" uid="uid://dde5po88nfns8" path="res://player/slimeTrail/slimeTrail.tscn" id="3_e7uva"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://player/stateMachine/Run.gd" id="5_2xcmb"]
 [ext_resource type="PackedScene" uid="uid://bh8tguf8so4kr" path="res://player/slimeTrail/slimeTrailRight.tscn" id="5_iye8f"]
 [ext_resource type="Script" path="res://player/stateMachine/Air.gd" id="6_uukb8"]
+[ext_resource type="PackedScene" uid="uid://b67oe0k12fjv0" path="res://screens/pauseMenu/pause_menu.tscn" id="7_cdj0g"]
 [ext_resource type="Script" path="res://player/stateMachine/GroundPound.gd" id="8_f0ll7"]
 [ext_resource type="Script" path="res://player/stateMachine/WallSlide.gd" id="9_ymp57"]
 
@@ -165,6 +166,8 @@ offset = Vector2(0, -50)
 zoom = Vector2(3, 3)
 position_smoothing_enabled = true
 
+[node name="PauseMenu" parent="." instance=ExtResource("7_cdj0g")]
+
 [node name="Timers" type="Node" parent="."]
 
 [node name="JumpBuffer" type="Timer" parent="Timers"]
@@ -209,10 +212,7 @@ run_state = NodePath("../Run")
 air_state = NodePath("../Air")
 ground_pound_state = NodePath("../GroundPound")
 
-[node name="SlimeAreaDetection" type="Label" parent="."]
-offset_left = -10.0
-offset_right = 30.0
-offset_bottom = 23.0
+[node name="SlimeAreaDetection" type="Node" parent="."]
 
 [node name="LeftSlimeArea" type="RayCast2D" parent="."]
 position = Vector2(0, -5)
@@ -246,10 +246,7 @@ hit_from_inside = true
 collide_with_areas = true
 collide_with_bodies = false
 
-[node name="LedgePushDetection" type="Label" parent="."]
-offset_left = 5.0
-offset_right = 45.0
-offset_bottom = 23.0
+[node name="LedgePushDetection" type="Node" parent="."]
 
 [node name="LeftInner" type="RayCast2D" parent="."]
 position = Vector2(5, 0)
