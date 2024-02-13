@@ -10,6 +10,7 @@ extends State
 @onready var right_inner = $"../../RightInner"
 @onready var right_outer = $"../../RightOuter"
 
+
 func enter() -> void:
 	super()
 
@@ -25,8 +26,8 @@ func process_physics(delta: float) -> State:
 		handle_wall_jump()
 	
 	handle_jump()
-	
 	handle_ledge_push()
+	handle_movement(delta)
 	handle_friction(delta)
 	
 	player.move_and_slide()
@@ -73,10 +74,12 @@ func handle_ledge_push():
 		and !right_outer.is_colliding()):
 			player.global_position.x -=5
 
-func handle_friction(delta):
+func handle_movement(delta):
 	if player.input_axis != 0:
 		player.velocity.x = move_toward(player.velocity.x, player.input_axis * player.movement_data.speed, player.movement_data.air_acceleration * delta)
-	elif player.input_axis == 0:
+
+func handle_friction(delta):
+	if player.input_axis == 0:
 		player.velocity.x = move_toward(player.velocity.x, 0, player.movement_data.air_resistance * delta)
 
 func handle_state():

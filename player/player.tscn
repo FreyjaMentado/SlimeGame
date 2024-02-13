@@ -1,18 +1,16 @@
-[gd_scene load_steps=19 format=3 uid="uid://b35yprvwfqx1l"]
+[gd_scene load_steps=17 format=3 uid="uid://b35yprvwfqx1l"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_iol46"]
-[ext_resource type="PackedScene" uid="uid://dde5po88nfns8" path="res://player/slimeTrail/slimeTrail.tscn" id="3_e7uva"]
 [ext_resource type="Texture2D" uid="uid://bp0m7witbkjsm" path="res://player/assets/pixelSlime80x64FinalV1.png" id="3_xpvp5"]
 [ext_resource type="Resource" uid="uid://dbejhsudfq7e1" path="res://player/movementData/baseMovement.tres" id="4_3kdex"]
-[ext_resource type="PackedScene" uid="uid://cc7gklruw284r" path="res://player/slimeTrail/slimeTrailLeft.tscn" id="4_lnwq1"]
 [ext_resource type="Script" path="res://player/stateMachine/StateMachine.gd" id="4_nywrc"]
 [ext_resource type="Script" path="res://player/stateMachine/Idle.gd" id="4_syt1c"]
 [ext_resource type="Script" path="res://player/stateMachine/Run.gd" id="5_2xcmb"]
-[ext_resource type="PackedScene" uid="uid://bh8tguf8so4kr" path="res://player/slimeTrail/slimeTrailRight.tscn" id="5_iye8f"]
 [ext_resource type="Script" path="res://player/stateMachine/Air.gd" id="6_uukb8"]
 [ext_resource type="PackedScene" uid="uid://b67oe0k12fjv0" path="res://screens/pauseMenu/pause_menu.tscn" id="7_cdj0g"]
 [ext_resource type="Script" path="res://player/stateMachine/GroundPound.gd" id="8_f0ll7"]
 [ext_resource type="Script" path="res://player/stateMachine/WallSlide.gd" id="9_ymp57"]
+[ext_resource type="Script" path="res://player/SlimeDash.gd" id="11_n4y3q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tcaqm"]
 
@@ -143,9 +141,6 @@ floor_block_on_wall = false
 floor_snap_length = 3.0
 script = ExtResource("1_iol46")
 movement_data = ExtResource("4_3kdex")
-slime_trail = ExtResource("3_e7uva")
-slime_trail_left = ExtResource("4_lnwq1")
-slime_trail_right = ExtResource("5_iye8f")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(0, -1)
@@ -187,10 +182,11 @@ script = ExtResource("4_syt1c")
 air_state = NodePath("../Air")
 run_state = NodePath("../Run")
 
-[node name="Run" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "air_state")]
+[node name="Run" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "air_state", "slime_dash_state")]
 script = ExtResource("5_2xcmb")
 idle_state = NodePath("../Idle")
 air_state = NodePath("../Air")
+slime_dash_state = NodePath("../SlimeDash")
 
 [node name="Air" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "run_state", "ground_pound_state", "wall_slide_state")]
 script = ExtResource("6_uukb8")
@@ -211,6 +207,12 @@ idle_state = NodePath("../Idle")
 run_state = NodePath("../Run")
 air_state = NodePath("../Air")
 ground_pound_state = NodePath("../GroundPound")
+
+[node name="SlimeDash" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "air_state", "run_state")]
+script = ExtResource("11_n4y3q")
+idle_state = NodePath("../Idle")
+air_state = NodePath("../Air")
+run_state = NodePath("../Run")
 
 [node name="SlimeAreaDetection" type="Node" parent="."]
 
