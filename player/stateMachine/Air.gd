@@ -54,6 +54,7 @@ func handle_wall_jump():
 	if player.is_on_wall():
 		var wall_normal = player.get_wall_normal()
 		if player.jump_buffer_timer.time_left > 0.0:
+			player.double_jump = true
 			player.jump_buffer_timer.stop()
 			player.velocity.x = wall_normal.x * player.movement_data.speed * 2
 			player.velocity.y = player.movement_data.jump_velocity

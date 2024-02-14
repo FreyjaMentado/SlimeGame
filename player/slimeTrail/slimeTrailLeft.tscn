@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://i8yvr60wdyj0" path="res://player/slimeTrail/slimeTrail.png" id="2_2xnuv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j4mio"]
-size = Vector2(6, 10)
+size = Vector2(6, 16)
 
 [node name="SlimeTrail" type="Area2D" groups=["Slime"]]
 collision_layer = 2
@@ -12,11 +12,11 @@ collision_mask = 2
 script = ExtResource("1_g75gb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(4, 0)
+position = Vector2(8.39799, 0.281112)
 rotation = 4.71239
-scale = Vector2(0.76, 0.745)
+scale = Vector2(0.973258, 0.794749)
 texture = ExtResource("2_2xnuv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(7, 0)
+position = Vector2(11, 0)
 shape = SubResource("RectangleShape2D_j4mio")

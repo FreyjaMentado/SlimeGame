@@ -28,7 +28,7 @@ func handle_state():
 		player.coyote_jump_timer.start()
 		return air_state
 	
-	if Input.is_action_just_pressed("dash") and player:
+	if Input.is_action_just_pressed("dash"):
 		return dash_state
 	
 	return null

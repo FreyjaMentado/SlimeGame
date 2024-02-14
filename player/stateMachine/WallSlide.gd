@@ -10,10 +10,7 @@ func enter() -> void:
 
 func process_physics(delta: float) -> State:
 	handle_friction(delta)
-	handle_slime_trail()
-	
 	player.move_and_slide()
-	
 	return handle_state()
 
 func handle_friction(delta):
@@ -22,11 +19,6 @@ func handle_friction(delta):
 		if player.input_axis != wall_normal.x:
 			player.velocity.y += gravity * delta * player.movement_data.wall_slide_speed
 			player.velocity.y = clamp(player.velocity.y, 0, player.movement_data.max_wall_slide_speed)
-
-func handle_slime_trail():
-	player.slime_side = player.is_on_wall_slime()
-	if player.slime_side != player.side.none:
-		player.handle_spawn_slime(player.slime_side)
 
 func handle_state():
 	if !player.is_on_floor() and Input.is_action_just_pressed("ground_pound"):

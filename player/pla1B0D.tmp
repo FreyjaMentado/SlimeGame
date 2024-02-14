@@ -222,6 +222,20 @@ idle_state = NodePath("../Idle")
 air_state = NodePath("../Air")
 run_state = NodePath("../Run")
 
+[node name="SlimeAreaDetection" type="Node" parent="."]
+
+[node name="LeftSlimeArea" type="RayCast2D" parent="."]
+target_position = Vector2(11, 0)
+hit_from_inside = true
+
+[node name="RightSlimeArea" type="RayCast2D" parent="."]
+target_position = Vector2(-11, 0)
+hit_from_inside = true
+
+[node name="BottomSlimeArea" type="RayCast2D" parent="."]
+target_position = Vector2(0, 13)
+hit_from_inside = true
+
 [node name="LedgePushDetection" type="Node" parent="."]
 
 [node name="LeftInner" type="RayCast2D" parent="."]
@@ -239,11 +253,3 @@ target_position = Vector2(0, -15)
 [node name="RightOuter" type="RayCast2D" parent="."]
 position = Vector2(-10, 0)
 target_position = Vector2(0, -15)
-
-[node name="WallDetection" type="Node" parent="."]
-
-[node name="LeftWall" type="RayCast2D" parent="."]
-target_position = Vector2(11, 0)
-
-[node name="RightWall" type="RayCast2D" parent="."]
-target_position = Vector2(-11, 0)
