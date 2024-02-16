@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bsx6hvpqr2hd4"]
+
+[ext_resource type="Script" path="res://player/slimeTrail/slime_trail_area.gd" id="1_jxsip"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b6efj"]
+
+[node name="Area2D" type="Area2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_jxsip")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.2, 0.2)
+shape = SubResource("RectangleShape2D_b6efj")

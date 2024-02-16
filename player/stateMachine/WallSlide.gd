@@ -10,11 +10,12 @@ func enter() -> void:
 
 func process_physics(delta: float) -> State:
 	handle_friction(delta)
+	player.handle_slime_trail()
 	player.move_and_slide()
 	return handle_state()
 
 func handle_friction(delta):
-	if player.is_on_wall() and player.input_axis != 0:
+	if player.on_wall and player.input_axis != 0:
 		var wall_normal = player.get_wall_normal()
 		if player.input_axis != wall_normal.x:
 			player.velocity.y += gravity * delta * player.movement_data.wall_slide_speed
@@ -34,7 +35,7 @@ func handle_state():
 		player.jump_buffer_timer.start()
 		return air_state
 	
-	if !player.is_on_wall() or (player.is_on_wall() and player.input_axis == 0):
+	if !player.on_wall or (player.on_wall and player.input_axis == 0):
 		return air_state
 	
 	return null

@@ -46,12 +46,12 @@ func handle_variable_jump():
 		player.velocity.y = player.movement_data.jump_velocity/2
 
 func handle_double_jump():
-	if Input.is_action_just_pressed("jump") and player.double_jump and !player.is_on_wall() and player.coyote_jump_timer.time_left <= 0.0:
+	if Input.is_action_just_pressed("jump") and player.double_jump and !player.on_wall and player.coyote_jump_timer.time_left <= 0.0:
 		player.velocity.y = player.movement_data.jump_velocity * .9
 		player.double_jump = false
 
 func handle_wall_jump():
-	if player.is_on_wall():
+	if player.on_wall:
 		var wall_normal = player.get_wall_normal()
 		if player.jump_buffer_timer.time_left > 0.0:
 			player.double_jump = true
@@ -87,7 +87,7 @@ func handle_state():
 	if !player.is_on_floor():
 		if Input.is_action_just_pressed("ground_pound"):
 			return ground_pound_state
-		if player.is_on_wall() and player.jump_buffer_timer.time_left == 0 and player.velocity.y > 0:
+		if player.on_wall and player.jump_buffer_timer.time_left == 0 and player.velocity.y > 0:
 			return wall_slide_state
 	
 	if player.is_on_floor() and player.jump_buffer_timer.time_left == 0:

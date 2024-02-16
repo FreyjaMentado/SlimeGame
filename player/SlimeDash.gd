@@ -16,13 +16,10 @@ func process_physics(delta: float) -> State:
 	handle_movement(delta)
 	handle_friction(delta)
 	
+	player.handle_slime_trail()
 	player.move_and_slide()
 	
 	return handle_state()
-
-func handle_slime_trail():
-	if player.slime_side != player.side.none:
-		player.handle_spawn_slime(player.slime_side)
 
 func handle_dash():
 	player.velocity.x = player.movement_data.dash_velocity * player.input_axis
@@ -36,7 +33,6 @@ func handle_friction(delta):
 
 func handle_state():
 	if player.is_on_floor() and player.velocity.x <= player.movement_data.speed:
-		print("leave")
 		if player.input_axis != 0:
 			return run_state
 		return idle_state

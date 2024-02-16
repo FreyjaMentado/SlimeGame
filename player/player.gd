@@ -10,8 +10,12 @@ extends CharacterBody2D
 @onready var sprite = $Sprite
 @onready var left_wall = $LeftWall
 @onready var right_wall = $RightWall
+@onready var bottom_slime = $BottomSlime
+@onready var left_slime = $LeftSlime
+@onready var right_slime = $RightSlime
 
 @export var movement_data: PlayerMovementData
+@export var slime_trail_collision: PackedScene
 
 # Reference to the two tilesets
 var input_axis
@@ -37,8 +41,9 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	input_axis = Input.get_axis('move_left', 'move_right')
 	handle_sprite()
-	handle_slime_trail()
 	handle_double_jump()
+	is_spawning_slime()
+	on_wall = is_player_on_wall()
 	state_machine.process_physics(delta)
 
 func _process(delta: float) -> void:
@@ -51,16 +56,27 @@ func handle_double_jump():
 func handle_sprite():
 	sprite.flip_h = input_axis > 0
 
-func handle_slime_trail():
+func is_player_on_wall() -> bool:
 	if left_wall.is_colliding() or right_wall.is_colliding():
-		on_wall = true
+		return true
 	else:
-		on_wall = false
-	
+		return false
+
+func is_spawning_slime() -> bool:
 	if !is_on_floor() and !on_wall:
 		if spawning_slime:
 			spawning_slime = false
 			current_slime = null
+			return false
+	return true
+
+func handle_slime_trail():
+	if !is_spawning_slime():
+		return
+	
+	if (bottom_slime.has_overlapping_areas() 
+	or left_slime.has_overlapping_areas()
+	or right_slime.has_overlapping_areas()):
 		return
 	
 	var offset_position = position
@@ -76,8 +92,9 @@ func handle_spawn_point(offset_position):
 	if !spawning_slime:
 		start_slime_line()
 		add_point(offset_position)
-	elif spawning_slime and slime_spawn_timer.time_left == 0.0:
+	elif spawning_slime:
 		add_point(offset_position)
+	handle_collision(offset_position)
 
 func start_slime_line():
 	spawning_slime = true
@@ -89,4 +106,9 @@ func start_slime_line():
 
 func add_point(offset_position):
 	current_slime.add_point(offset_position)
-	slime_spawn_timer.start()
+
+func handle_collision(offset_position):
+	var collider
+	collider = slime_trail_collision.instantiate()
+	collider.position = offset_position
+	level.add_child(collider)

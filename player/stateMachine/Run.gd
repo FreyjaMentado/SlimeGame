@@ -9,6 +9,7 @@ func enter() -> void:
 
 func process_physics(delta: float) -> State:
 	handle_movement(delta)
+	player.handle_slime_trail()
 	player.move_and_slide()
 	return handle_state()
 
