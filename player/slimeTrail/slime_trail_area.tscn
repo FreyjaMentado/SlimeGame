@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsx6hvpqr2hd4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b6efj"]
+
+[node name="Area2D" type="Area2D" groups=["slimeTrail"]]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.3, 0.3)
+shape = SubResource("RectangleShape2D_b6efj")

@@ -1,7 +1,6 @@
-[gd_scene load_steps=22 format=3 uid="uid://b35yprvwfqx1l"]
+[gd_scene load_steps=17 format=3 uid="uid://b35yprvwfqx1l"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_iol46"]
-[ext_resource type="PackedScene" uid="uid://bsx6hvpqr2hd4" path="res://player/slimeTrail/slime_trail_area.tscn" id="3_q1qhi"]
 [ext_resource type="Texture2D" uid="uid://bp0m7witbkjsm" path="res://player/assets/pixelSlime80x64FinalV1.png" id="3_xpvp5"]
 [ext_resource type="Resource" uid="uid://dbejhsudfq7e1" path="res://player/movementData/baseMovement.tres" id="4_3kdex"]
 [ext_resource type="Script" path="res://player/stateMachine/StateMachine.gd" id="4_nywrc"]
@@ -135,14 +134,6 @@ _data = {
 "RESET": SubResource("Animation_4nlaf")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_48n1e"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_v41k6"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_x8jpl"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_smmg1"]
-
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 3
 collision_mask = 3
@@ -150,7 +141,6 @@ floor_block_on_wall = false
 floor_snap_length = 3.0
 script = ExtResource("1_iol46")
 movement_data = ExtResource("4_3kdex")
-slime_trail_collision = ExtResource("3_q1qhi")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(0, -1)
@@ -185,6 +175,10 @@ one_shot = true
 
 [node name="SlimeDashTimer" type="Timer" parent="Timers"]
 wait_time = 0.5
+one_shot = true
+
+[node name="SlimeSpawnTimer" type="Timer" parent="Timers"]
+wait_time = 0.1
 one_shot = true
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
@@ -228,6 +222,20 @@ idle_state = NodePath("../Idle")
 air_state = NodePath("../Air")
 run_state = NodePath("../Run")
 
+[node name="SlimeAreaDetection" type="Node" parent="."]
+
+[node name="LeftSlimeArea" type="RayCast2D" parent="."]
+target_position = Vector2(11, 0)
+hit_from_inside = true
+
+[node name="RightSlimeArea" type="RayCast2D" parent="."]
+target_position = Vector2(-11, 0)
+hit_from_inside = true
+
+[node name="BottomSlimeArea" type="RayCast2D" parent="."]
+target_position = Vector2(0, 13)
+hit_from_inside = true
+
 [node name="LedgePushDetection" type="Node" parent="."]
 
 [node name="LeftInner" type="RayCast2D" parent="."]
@@ -245,49 +253,3 @@ target_position = Vector2(0, -15)
 [node name="RightOuter" type="RayCast2D" parent="."]
 position = Vector2(-10, 0)
 target_position = Vector2(0, -15)
-
-[node name="WallDetection" type="Node" parent="."]
-
-[node name="LeftWall" type="RayCast2D" parent="."]
-target_position = Vector2(11, 0)
-
-[node name="RightWall" type="RayCast2D" parent="."]
-target_position = Vector2(-11, 0)
-
-[node name="SlimeTrailDetectors" type="Node" parent="."]
-
-[node name="RightFloorSlime" type="Area2D" parent="."]
-position = Vector2(5, 5)
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RightFloorSlime"]
-scale = Vector2(0.4, 0.4)
-shape = SubResource("RectangleShape2D_48n1e")
-
-[node name="LeftFloorSlime" type="Area2D" parent="."]
-position = Vector2(-5, 5)
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftFloorSlime"]
-scale = Vector2(0.4, 0.4)
-shape = SubResource("RectangleShape2D_v41k6")
-
-[node name="RightWallSlime" type="Area2D" parent="."]
-position = Vector2(5, -5)
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWallSlime"]
-scale = Vector2(0.4, 0.4)
-shape = SubResource("RectangleShape2D_x8jpl")
-
-[node name="LeftWallSlime" type="Area2D" parent="."]
-position = Vector2(-5, -5)
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWallSlime"]
-scale = Vector2(0.4, 0.4)
-shape = SubResource("RectangleShape2D_smmg1")
