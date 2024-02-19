@@ -6,7 +6,6 @@ extends CharacterBody2D
 @onready var coyote_jump_timer = $Timers/CoyoteJumpTimer
 @onready var jump_buffer_timer = $Timers/JumpBuffer
 @onready var slime_dash_timer = $Timers/SlimeDashTimer
-@onready var slime_spawn_timer = $Timers/SlimeSpawnTimer
 @onready var sprite = $Sprite
 @onready var left_wall = $LeftWall
 @onready var right_wall = $RightWall
