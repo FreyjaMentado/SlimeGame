@@ -10,9 +10,10 @@ extends CharacterBody2D
 @onready var sprite = $Sprite
 @onready var left_wall = $LeftWall
 @onready var right_wall = $RightWall
-@onready var bottom_slime = $BottomSlime
-@onready var left_slime = $LeftSlime
-@onready var right_slime = $RightSlime
+@onready var left_floor_slime = $LeftFloorSlime
+@onready var right_floor_slime = $RightFloorSlime
+@onready var left_wall_slime = $LeftWallSlime
+@onready var right_wall_slime = $RightWallSlime
 
 @export var movement_data: PlayerMovementData
 @export var slime_trail_collision: PackedScene
@@ -24,6 +25,14 @@ var double_jump:bool = false
 var spawning_slime:bool = false
 var current_slime:Line2D = null
 var on_wall: bool = false
+
+enum side {
+	left_floor,
+	right_floor,
+	left_wall,
+	right_wall,
+	none
+}
 
 func _ready() -> void:
 	# Initialize the state machine, passing a reference of the player to the states,
@@ -42,8 +51,8 @@ func _physics_process(delta: float) -> void:
 	input_axis = Input.get_axis('move_left', 'move_right')
 	handle_sprite()
 	handle_double_jump()
-	is_spawning_slime()
 	on_wall = is_player_on_wall()
+	is_spawning_slime()
 	state_machine.process_physics(delta)
 
 func _process(delta: float) -> void:
@@ -73,28 +82,58 @@ func is_spawning_slime() -> bool:
 func handle_slime_trail():
 	if !is_spawning_slime():
 		return
-	
-	if (bottom_slime.has_overlapping_areas() 
-	or left_slime.has_overlapping_areas()
-	or right_slime.has_overlapping_areas()):
+
+	var spawn_side = handle_spawn_side()
+	if spawn_side == side.none:
 		return
 	
-	var offset_position = position
+	handle_should_spawn_point(spawn_side)
+
+func handle_spawn_side():
 	if is_on_floor():
-		offset_position.y += 5
+		if input_axis > 0:
+			return side.left_floor
+		elif input_axis < 0:
+			return side.right_floor
 	elif on_wall:
 		var wall_normal = get_wall_normal()
-		offset_position.x += 10 * (wall_normal.x * -1)
-	
-	handle_spawn_point(offset_position)
+		if wall_normal.x > 0:
+			return side.left_wall
+		elif wall_normal.x < 0:
+			return side.right_wall
+	return side.none
 
-func handle_spawn_point(offset_position):
+func handle_should_spawn_point(spawn_side):
+	match spawn_side:
+		side.left_floor:
+			if !left_floor_slime.has_overlapping_areas() and !right_floor_slime.has_overlapping_areas():
+				handle_spawn_point(spawn_side, true)
+			elif !left_floor_slime.has_overlapping_areas() and right_floor_slime.has_overlapping_areas():
+				handle_spawn_point(side.right_floor, false)
+		side.right_floor:
+			if !left_floor_slime.has_overlapping_areas() and !right_floor_slime.has_overlapping_areas():
+				handle_spawn_point(spawn_side, true)
+			elif !right_floor_slime.has_overlapping_areas() and left_floor_slime.has_overlapping_areas():
+				handle_spawn_point(side.left_floor, false)
+		side.left_wall:
+			if !left_wall_slime.has_overlapping_areas() and !left_floor_slime.has_overlapping_areas():
+				handle_spawn_point(spawn_side, true)
+			elif !left_wall_slime.has_overlapping_areas() and left_floor_slime.has_overlapping_areas():
+				handle_spawn_point(side.left_floor, false)
+		side.right_wall:
+			if !right_wall_slime.has_overlapping_areas() and !right_floor_slime.has_overlapping_areas():
+				handle_spawn_point(spawn_side, true)
+			elif !right_wall_slime.has_overlapping_areas() and right_floor_slime.has_overlapping_areas():
+				handle_spawn_point(side.right_floor, false)
+
+func handle_spawn_point(spawn_side, add_collider):
 	if !spawning_slime:
 		start_slime_line()
-		add_point(offset_position)
+		current_slime.add_point(get_spawn_position(spawn_side))
 	elif spawning_slime:
-		add_point(offset_position)
-	handle_collision(offset_position)
+		current_slime.add_point(get_spawn_position(spawn_side))
+	if add_collider:
+		handle_collision(get_spawn_position(spawn_side))
 
 func start_slime_line():
 	spawning_slime = true
@@ -104,11 +143,25 @@ func start_slime_line():
 	current_slime.width = 8
 	level.add_child(current_slime)
 
-func add_point(offset_position):
-	current_slime.add_point(offset_position)
+func get_spawn_position(spawn_side):
+	var spawn_position = position
+	match spawn_side:
+		side.left_floor:
+			spawn_position = left_floor_slime.global_position
+			spawn_position.y += 5
+		side.right_floor:
+			spawn_position = right_floor_slime.global_position
+			spawn_position.y += 5
+		side.left_wall:
+			spawn_position = left_wall_slime.global_position
+			spawn_position.x -= 5
+		side.right_wall:
+			spawn_position = right_wall_slime.global_position
+			spawn_position.x += 5
+	return spawn_position
 
-func handle_collision(offset_position):
+func handle_collision(spawn_position):
 	var collider
 	collider = slime_trail_collision.instantiate()
-	collider.position = offset_position
+	collider.position = spawn_position
 	level.add_child(collider)

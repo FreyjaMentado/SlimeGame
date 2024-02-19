@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b35yprvwfqx1l"]
+[gd_scene load_steps=22 format=3 uid="uid://b35yprvwfqx1l"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_iol46"]
 [ext_resource type="PackedScene" uid="uid://bsx6hvpqr2hd4" path="res://player/slimeTrail/slime_trail_area.tscn" id="3_q1qhi"]
@@ -135,8 +135,13 @@ _data = {
 "RESET": SubResource("Animation_4nlaf")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_oj8a1"]
-size = Vector2(4.5, 4.5)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_48n1e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v41k6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x8jpl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_smmg1"]
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 3
@@ -255,26 +260,38 @@ target_position = Vector2(-11, 0)
 
 [node name="SlimeTrailDetectors" type="Node" parent="."]
 
-[node name="BottomSlime" type="Area2D" parent="."]
+[node name="RightFloorSlime" type="Area2D" parent="."]
+position = Vector2(5, 5)
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomSlime"]
-position = Vector2(0, 6)
-shape = SubResource("RectangleShape2D_oj8a1")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightFloorSlime"]
+scale = Vector2(0.4, 0.4)
+shape = SubResource("RectangleShape2D_48n1e")
 
-[node name="LeftSlime" type="Area2D" parent="."]
+[node name="LeftFloorSlime" type="Area2D" parent="."]
+position = Vector2(-5, 5)
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftSlime"]
-position = Vector2(6, 0)
-shape = SubResource("RectangleShape2D_oj8a1")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftFloorSlime"]
+scale = Vector2(0.4, 0.4)
+shape = SubResource("RectangleShape2D_v41k6")
 
-[node name="RightSlime" type="Area2D" parent="."]
+[node name="RightWallSlime" type="Area2D" parent="."]
+position = Vector2(5, -5)
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RightSlime"]
-position = Vector2(-6, 0)
-shape = SubResource("RectangleShape2D_oj8a1")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWallSlime"]
+scale = Vector2(0.4, 0.4)
+shape = SubResource("RectangleShape2D_x8jpl")
+
+[node name="LeftWallSlime" type="Area2D" parent="."]
+position = Vector2(-5, -5)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWallSlime"]
+scale = Vector2(0.4, 0.4)
+shape = SubResource("RectangleShape2D_smmg1")
