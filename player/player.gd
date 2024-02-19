@@ -68,8 +68,7 @@ func handle_sprite():
 func is_player_on_wall() -> bool:
 	if left_wall.is_colliding() or right_wall.is_colliding():
 		return true
-	else:
-		return false
+	return false
 
 func is_spawning_slime() -> bool:
 	if !is_on_floor() and !on_wall:
@@ -91,9 +90,9 @@ func handle_slime_trail():
 
 func handle_spawn_side():
 	if is_on_floor():
-		if input_axis > 0:
+		if velocity.x > 0:
 			return side.left_floor
-		elif input_axis < 0:
+		elif velocity.x < 0:
 			return side.right_floor
 	elif on_wall:
 		var wall_normal = get_wall_normal()
