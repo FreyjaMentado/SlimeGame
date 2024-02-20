@@ -24,6 +24,7 @@ var double_jump:bool = false
 var spawning_slime:bool = false
 var current_slime:Line2D = null
 var on_wall: bool = false
+var sprite_locked: bool = false
 
 enum side {
 	left_floor,
@@ -62,7 +63,12 @@ func handle_double_jump():
 		double_jump = true
 
 func handle_sprite():
-	sprite.flip_h = input_axis > 0
+	if input_axis != 0:
+		sprite_locked = false
+	else:
+		sprite_locked = true
+	if !sprite_locked:
+		sprite.flip_h = input_axis > 0
 
 func is_player_on_wall() -> bool:
 	if left_wall.is_colliding() or right_wall.is_colliding():

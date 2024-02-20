@@ -48,6 +48,7 @@ func handle_variable_jump():
 func handle_double_jump():
 	if Input.is_action_just_pressed("jump") and player.double_jump and !player.on_wall and player.coyote_jump_timer.time_left <= 0.0:
 		player.velocity.y = player.movement_data.jump_velocity * .9
+		player.animations.play("DoubleJumpSpin")
 		player.double_jump = false
 
 func handle_wall_jump():
