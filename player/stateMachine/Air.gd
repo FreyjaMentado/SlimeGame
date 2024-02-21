@@ -4,6 +4,7 @@ extends State
 @export var run_state: State
 @export var ground_pound_state: State
 @export var wall_slide_state: State
+@export var slime_blob: PackedScene
 
 @onready var left_inner = $"../../LeftInner"
 @onready var left_outer = $"../../LeftOuter"
@@ -48,8 +49,21 @@ func handle_variable_jump():
 func handle_double_jump():
 	if Input.is_action_just_pressed("jump") and player.double_jump and !player.on_wall and player.coyote_jump_timer.time_left <= 0.0:
 		player.velocity.y = player.movement_data.jump_velocity * .9
-		player.animations.play("DoubleJumpSpin")
 		player.double_jump = false
+		if player.input_axis > 0:
+			player.animations.play("DoubleJumpSpin")
+		else:
+			player.animations.play_backwards("DoubleJumpSpin")
+		handle_launch_slime()
+
+func handle_launch_slime():
+	var slime
+	slime = slime_blob.instantiate()
+	slime.position = player.global_position
+	slime.position.y -= 20
+	slime.position.x -= 20
+	player.level.add_child(slime)
+	slime.apply_central_impulse(Vector2(-200,-200))
 
 func handle_wall_jump():
 	if player.on_wall:
