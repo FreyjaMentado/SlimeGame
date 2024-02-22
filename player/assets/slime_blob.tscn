@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://c626x4l3qqrqa"]
 
 [ext_resource type="Texture2D" uid="uid://b7b0po2ebih45" path="res://player/assets/slimeBall.png" id="1_bm2jb"]
-[ext_resource type="Script" path="res://player/assets/slime_blob.gd" id="1_w1ljt"]
+[ext_resource type="Script" path="res://player/assets/SlimeBlob.gd" id="1_jk3mw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_swtyn"]
 
@@ -16,7 +16,9 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_gajfv"]
 
 [node name="SlimeBlob" type="RigidBody2D"]
-script = ExtResource("1_w1ljt")
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_jk3mw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_swtyn")

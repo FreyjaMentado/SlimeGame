@@ -22,6 +22,7 @@ var input_axis
 var level
 var double_jump:bool = false
 var spawning_slime:bool = false
+var slime_blob:bool = false
 var current_slime:Line2D = null
 var on_wall: bool = false
 var sprite_locked: bool = false
@@ -77,7 +78,8 @@ func is_player_on_wall() -> bool:
 
 func is_spawning_slime() -> bool:
 	if !is_on_floor() and !on_wall:
-		if spawning_slime:
+		print(slime_blob)
+		if spawning_slime and !slime_blob:
 			spawning_slime = false
 			current_slime = null
 			return false
@@ -140,6 +142,7 @@ func handle_spawn_point(spawn_side, add_collider):
 		handle_collision(get_spawn_position(spawn_side))
 
 func start_slime_line():
+	print("here")
 	spawning_slime = true
 	current_slime = Line2D.new()
 	current_slime.z_index = 9

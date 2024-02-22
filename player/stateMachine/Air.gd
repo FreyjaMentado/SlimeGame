@@ -60,8 +60,6 @@ func handle_launch_slime():
 	var slime
 	slime = slime_blob.instantiate()
 	slime.position = player.global_position
-	slime.position.y -= 20
-	slime.position.x -= 20
 	player.level.add_child(slime)
 	slime.apply_central_impulse(Vector2(-200,-200))
 
