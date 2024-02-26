@@ -171,6 +171,7 @@ platform_floor_layers = 4294901761
 script = ExtResource("1_iol46")
 movement_data = ExtResource("4_3kdex")
 slime_trail_collision = ExtResource("3_q1qhi")
+slime_blob = ExtResource("10_4ehw2")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(0, -1)
@@ -228,7 +229,6 @@ idle_state = NodePath("../Idle")
 run_state = NodePath("../Run")
 ground_pound_state = NodePath("../GroundPound")
 wall_slide_state = NodePath("../WallSlide")
-slime_blob = ExtResource("10_4ehw2")
 
 [node name="GroundPound" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "run_state", "air_state")]
 script = ExtResource("8_f0ll7")

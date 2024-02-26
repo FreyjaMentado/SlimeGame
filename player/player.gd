@@ -16,13 +16,13 @@ extends CharacterBody2D
 
 @export var movement_data: PlayerMovementData
 @export var slime_trail_collision: PackedScene
+@export var slime_blob: PackedScene
 
 # Reference to the two tilesets
 var input_axis
 var level
 var double_jump:bool = false
 var spawning_slime:bool = false
-var slime_blob:bool = false
 var current_slime:Line2D = null
 var on_wall: bool = false
 var sprite_locked: bool = false
@@ -36,14 +36,13 @@ enum side {
 }
 
 func _ready() -> void:
-	# Initialize the state machine, passing a reference of the player to the states,
-	# that way they can move and react accordingly
 	state_machine.init(self)
 	sprite.scale.x = 0.347
 	sprite.scale.y = 0.347
 	sprite.position.y += 1
 	z_index = 10
 	level = get_parent()
+	
 
 func _unhandled_input(event: InputEvent) -> void:
 	state_machine.process_input(event)
@@ -78,8 +77,7 @@ func is_player_on_wall() -> bool:
 
 func is_spawning_slime() -> bool:
 	if !is_on_floor() and !on_wall:
-		print(slime_blob)
-		if spawning_slime and !slime_blob:
+		if spawning_slime:
 			spawning_slime = false
 			current_slime = null
 			return false
@@ -172,3 +170,22 @@ func handle_collision(spawn_position):
 	collider = slime_trail_collision.instantiate()
 	collider.position = spawn_position
 	level.add_child(collider)
+
+func handle_launch_slime():
+	var slime
+	slime = slime_blob.instantiate()
+	slime.position = global_position
+	level.add_child(slime)
+	slime.connect("slime_landed", handle_slime_blob)
+	slime.apply_central_impulse(Vector2(-200,-200))
+
+func handle_slime_blob(slime_blob):
+	start_slime_line()
+	current_slime.add_point(slime_blob.global_position)
+	var left = slime_blob.global_position
+	left.x += 15
+	var right = slime_blob.global_position
+	right.x -= 15
+	current_slime.add_point(left)
+	current_slime.add_point(right)
+	slime_blob.queue_free()
