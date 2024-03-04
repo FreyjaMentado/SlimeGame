@@ -16,23 +16,6 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tcaqm"]
 
-[sub_resource type="Animation" id="Animation_sfek8"]
-resource_name = "DoubleJumpSpin"
-length = 0.25
-step = 0.01
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 6.28319]
-}
-
 [sub_resource type="Animation" id="Animation_1d5yu"]
 resource_name = "GroundPoundInit"
 length = 0.25
@@ -146,6 +129,23 @@ tracks/2/keys = {
 "values": [Vector2(0.347, 0.347)]
 }
 
+[sub_resource type="Animation" id="Animation_sfek8"]
+resource_name = "DoubleJumpSpin"
+length = 0.25
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_571yh"]
 _data = {
 "DoubleJumpSpin": SubResource("Animation_sfek8"),
@@ -162,16 +162,14 @@ _data = {
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_smmg1"]
 
-[node name="Player" type="CharacterBody2D" groups=["Player"]]
+[node name="Player" type="CharacterBody2D"]
 collision_layer = 3
 collision_mask = 3
 floor_block_on_wall = false
 floor_snap_length = 3.0
-platform_floor_layers = 4294901761
 script = ExtResource("1_iol46")
 movement_data = ExtResource("4_3kdex")
 slime_trail_collision = ExtResource("3_q1qhi")
-slime_blob = ExtResource("10_4ehw2")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(0, -1)
@@ -229,6 +227,7 @@ idle_state = NodePath("../Idle")
 run_state = NodePath("../Run")
 ground_pound_state = NodePath("../GroundPound")
 wall_slide_state = NodePath("../WallSlide")
+slime_blob = ExtResource("10_4ehw2")
 
 [node name="GroundPound" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "run_state", "air_state")]
 script = ExtResource("8_f0ll7")

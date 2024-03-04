@@ -16,6 +16,7 @@ extends CharacterBody2D
 
 @export var movement_data: PlayerMovementData
 @export var slime_trail_collision: PackedScene
+@export var slime_blob: PackedScene
 
 # Reference to the two tilesets
 var input_axis
@@ -24,6 +25,7 @@ var double_jump:bool = false
 var spawning_slime:bool = false
 var current_slime:Line2D = null
 var on_wall: bool = false
+var sprite_locked: bool = false
 
 enum side {
 	left_floor,
@@ -34,14 +36,13 @@ enum side {
 }
 
 func _ready() -> void:
-	# Initialize the state machine, passing a reference of the player to the states,
-	# that way they can move and react accordingly
 	state_machine.init(self)
 	sprite.scale.x = 0.347
 	sprite.scale.y = 0.347
 	sprite.position.y += 1
 	z_index = 10
 	level = get_parent()
+	
 
 func _unhandled_input(event: InputEvent) -> void:
 	state_machine.process_input(event)
@@ -62,7 +63,12 @@ func handle_double_jump():
 		double_jump = true
 
 func handle_sprite():
-	sprite.flip_h = input_axis > 0
+	if input_axis != 0:
+		sprite_locked = false
+	else:
+		sprite_locked = true
+	if !sprite_locked:
+		sprite.flip_h = input_axis > 0
 
 func is_player_on_wall() -> bool:
 	if left_wall.is_colliding() or right_wall.is_colliding():
@@ -163,3 +169,28 @@ func handle_collision(spawn_position):
 	collider = slime_trail_collision.instantiate()
 	collider.position = spawn_position
 	level.add_child(collider)
+
+func handle_launch_slime():
+	var slime
+	# TODO: Need to spawn multiples and send in both directions and probably add a check
+	#       for ground pound vs double jump
+	slime = slime_blob.instantiate()
+	slime.position = global_position
+	level.add_child(slime)
+	slime.connect("slime_landed", handle_slime_blob)
+	slime.apply_central_impulse(Vector2(-200,-200))
+	# slime.apply_central_impulse(Vector2(200,-200)) # Launches to the right
+	# slime.apply_central_impulse(Vector2(-400,-400)) # Launches to the left further and higher
+	# slime.apply_central_impulse(Vector2(400,-400)) # Launches to the right further and higher
+
+func handle_slime_blob(slime_blob, spawn_side):
+	start_slime_line()
+	current_slime.add_point(slime_blob.global_position)
+	var left = slime_blob.global_position
+	left.x += 15
+	var right = slime_blob.global_position
+	right.x -= 15
+	current_slime.add_point(left)
+	current_slime.add_point(right)
+	current_slime = null
+	slime_blob.queue_free()
