@@ -140,7 +140,6 @@ func handle_spawn_point(spawn_side, add_collider):
 		handle_collision(get_spawn_position(spawn_side))
 
 func start_slime_line():
-	print("here")
 	spawning_slime = true
 	current_slime = Line2D.new()
 	current_slime.z_index = 9
@@ -173,13 +172,18 @@ func handle_collision(spawn_position):
 
 func handle_launch_slime():
 	var slime
+	# TODO: Need to spawn multiples and send in both directions and probably add a check
+	#       for ground pound vs double jump
 	slime = slime_blob.instantiate()
 	slime.position = global_position
 	level.add_child(slime)
 	slime.connect("slime_landed", handle_slime_blob)
 	slime.apply_central_impulse(Vector2(-200,-200))
+	# slime.apply_central_impulse(Vector2(200,-200)) # Launches to the right
+	# slime.apply_central_impulse(Vector2(-400,-400)) # Launches to the left further and higher
+	# slime.apply_central_impulse(Vector2(400,-400)) # Launches to the right further and higher
 
-func handle_slime_blob(slime_blob):
+func handle_slime_blob(slime_blob, spawn_side):
 	start_slime_line()
 	current_slime.add_point(slime_blob.global_position)
 	var left = slime_blob.global_position
@@ -188,4 +192,5 @@ func handle_slime_blob(slime_blob):
 	right.x -= 15
 	current_slime.add_point(left)
 	current_slime.add_point(right)
+	current_slime = null
 	slime_blob.queue_free()

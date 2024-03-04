@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://player/assets/SlimeBlob.gd" id="1_jk3mw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_swtyn"]
+radius = 5.0
 
 [sub_resource type="Animation" id="Animation_nue7j"]
 resource_name = "SlimeLaunchLeft"
@@ -13,7 +14,8 @@ _data = {
 "SlimeLaunchLeft": SubResource("Animation_nue7j")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_gajfv"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q7vk4"]
+size = Vector2(4.66667, 4.66667)
 
 [node name="SlimeBlob" type="RigidBody2D" groups=["SlimeBlobs"]]
 collision_layer = 0
@@ -32,12 +34,33 @@ libraries = {
 "": SubResource("AnimationLibrary_khsqa")
 }
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="LeftArea" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftArea"]
+position = Vector2(5, 0)
 scale = Vector2(1.5, 1.5)
-shape = SubResource("CircleShape2D_gajfv")
+shape = SubResource("RectangleShape2D_q7vk4")
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[node name="RightArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightArea"]
+position = Vector2(-5, 0)
+scale = Vector2(1.5, 1.5)
+shape = SubResource("RectangleShape2D_q7vk4")
+
+[node name="BottomArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomArea"]
+position = Vector2(0, 7)
+scale = Vector2(2.5, 1)
+shape = SubResource("RectangleShape2D_q7vk4")
+
+[connection signal="body_entered" from="LeftArea" to="." method="_on_area_2d_body_entered_left"]
+[connection signal="body_entered" from="RightArea" to="." method="_on_area_2d_body_entered_right"]
+[connection signal="body_entered" from="BottomArea" to="." method="_on_area_2d_body_entered_bottom"]
