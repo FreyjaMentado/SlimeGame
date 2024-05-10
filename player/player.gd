@@ -13,6 +13,7 @@ extends CharacterBody2D
 @onready var right_floor_slime = $RightFloorSlime
 @onready var left_wall_slime = $LeftWallSlime
 @onready var right_wall_slime = $RightWallSlime
+@onready var game_vars = get_node("/root/GameVariables")
 
 @export var movement_data: PlayerMovementData
 @export var slime_trail_collision: PackedScene
@@ -24,6 +25,7 @@ var double_jump:bool = false
 var spawning_slime:bool = false
 var current_slime:Line2D = null
 var on_wall: bool = false
+var sprite_locked: bool = false
 
 enum side {
 	left_floor,
@@ -42,6 +44,7 @@ func _ready() -> void:
 	sprite.position.y += 1
 	z_index = 10
 	level = get_parent()
+	game_vars.score = 0
 
 func _unhandled_input(event: InputEvent) -> void:
 	state_machine.process_input(event)
@@ -62,7 +65,12 @@ func handle_double_jump():
 		double_jump = true
 
 func handle_sprite():
-	sprite.flip_h = input_axis > 0
+	if input_axis != 0:
+		sprite_locked = false
+	else:
+		sprite_locked = true
+	if !sprite_locked:
+		sprite.flip_h = input_axis > 0
 
 func is_player_on_wall() -> bool:
 	if left_wall.is_colliding() or right_wall.is_colliding():
@@ -128,8 +136,10 @@ func handle_spawn_point(spawn_side, add_collider):
 	if !spawning_slime:
 		start_slime_line()
 		current_slime.add_point(get_spawn_position(spawn_side))
+		game_vars.score += 1
 	elif spawning_slime:
 		current_slime.add_point(get_spawn_position(spawn_side))
+		game_vars.score += 1
 	if add_collider:
 		handle_collision(get_spawn_position(spawn_side))
 
